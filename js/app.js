@@ -23,7 +23,12 @@ Enemy.prototype.update = function(dt) {
     // Você deve multiplicar qualquer movimento pelo parâmetro
     // dt, o que garantirá que o jogo rode na mesma velocidade
     // em qualquer computador.
-    this.x = this.x + this.velocidade * dt;
+    this.x += this.velocidade * dt;
+
+    //Testando se inimigo chegou ao final do Canvas
+    if(this.x > 505){
+      this.x = -10;
+    }
 };
 
 // Desenhe o inimigo na tela, método exigido pelo jogo
@@ -31,9 +36,9 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
-
-allEnemies.push(new Enemy(-10, 212.5, Math.floor(Math.random() * 8) + 2));
+//Criando mais de um inimigo
+allEnemies.push(new Enemy(-10, 150, Math.floor(Math.random() * 8) + 2));
+allEnemies.push(new Enemy(-10, 250, Math.floor(Math.random() * 8) + 2));
 
 // Agora, escreva sua própria classe de jogador
 // Esta classe exige um método update(),
