@@ -37,8 +37,8 @@ Enemy.prototype.render = function() {
 };
 
 //Criando mais de um inimigo
-allEnemies.push(new Enemy(-10, 150, Math.floor(Math.random() * 8) + 2));
-allEnemies.push(new Enemy(-10, 250, Math.floor(Math.random() * 8) + 2));
+allEnemies.push(new Enemy(-100, 50.5, 100));
+allEnemies.push(new Enemy(-100, 151.5, 150));
 
 // Agora, escreva sua própria classe de jogador
 // Esta classe exige um método update(),
