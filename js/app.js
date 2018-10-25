@@ -27,7 +27,7 @@ Enemy.prototype.update = function(dt) {
 
     //Testando se inimigo chegou ao final do Canvas
     if(this.x > 505){
-      this.x = -10;
+      this.x = 0;
     }
 };
 
@@ -44,12 +44,29 @@ allEnemies.push(new Enemy(-10, 250, Math.floor(Math.random() * 8) + 2));
 // Esta classe exige um método update(),
 // um render() e um handleInput().
 
+var Player = function (x,y) {
+    this.x = x;
+    this.y = y;
+    this.sprite = 'images/char-boy.png';
+}
+
+Player.prototype.update = function(dt){
+
+}
+
+Player.prototype.render = function(){
+    ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
+}
+
+Player.prototype.handleInput = function(){
+
+}
 
 // Represente seus objetos como instâncias.
 // Coloque todos os objetos inimgos numa array allEnemies
 // Coloque o objeto do jogador numa variável chamada jogador.
 
-
+var player = new Player();
 
 // Isto reconhece cliques em teclas e envia as chaves para seu
 // jogador. método handleInput(). Não é preciso mudar nada.
