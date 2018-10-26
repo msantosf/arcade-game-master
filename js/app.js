@@ -1,32 +1,26 @@
 let allEnemies = [];
 // Inimigos que nosso jogador deve evitar
 var Enemy = function(x, y, velocidade) {
-    // As variáveis aplicadas a nossas instâncias entram aqui.
-    // Fornecemos uma a você para que possa começcar.
-
-    // A imagem/sprite de nossos inimigos, isso usa um
-    // ajudante que é fornecido para carregar imagens
-    // com facilidade.
-
     //Definindo posição x do Enemy
     this.x = x;
     //Definindo posição y do Enemy
     this.y = y;
     //definindo velocidade
     this.velocidade = velocidade;
+    //imagem do personagem
     this.sprite = 'images/enemy-bug.png';
 };
 
 // Atualize a posição do inimigo, método exigido pelo jogo
 // Parâmetro: dt, um delta de tempo entre ticks
 Enemy.prototype.update = function(dt) {
-    // Você deve multiplicar qualquer movimento pelo parâmetro
-    // dt, o que garantirá que o jogo rode na mesma velocidade
-    // em qualquer computador.
+    //Criando nova posição para o enemy
+    //Novo x, será o próprio x + velocidade * delta
     this.x += this.velocidade * dt;
 
     //Testando se inimigo chegou ao final do Canvas
     if(this.x > 505){
+      //Se True, Enemy volta para posição inicial
       this.x = 0;
     }
 };
@@ -36,11 +30,20 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//Criando mais de um inimigo
-allEnemies.push(new Enemy(-100, 50.5, 100));
-allEnemies.push(new Enemy(-100, 151.5, 150));
+//Criando função para gerar uma velocidade aleatória de 100 à 600
+function randomVelocidade () {
+    let min = 100;
+    let max = 600;
+    Math.ceil(min);
+    Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
 
-// Agora, escreva sua própria classe de jogador
+//Criando array para armazenar os inimigos
+allEnemies.push(new Enemy(-100, 50.5, randomVelocidade()));
+allEnemies.push(new Enemy(-100, 140.5, randomVelocidade()));
+allEnemies.push(new Enemy(-100, 225.5, randomVelocidade()));
+
 // Esta classe exige um método update(),
 // um render() e um handleInput().
 
@@ -62,10 +65,7 @@ Player.prototype.handleInput = function(){
 
 }
 
-// Represente seus objetos como instâncias.
-// Coloque todos os objetos inimgos numa array allEnemies
-// Coloque o objeto do jogador numa variável chamada jogador.
-
+// Criando objeto Player()
 var player = new Player();
 
 // Isto reconhece cliques em teclas e envia as chaves para seu
