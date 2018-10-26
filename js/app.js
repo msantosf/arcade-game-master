@@ -65,8 +65,8 @@ Player.prototype.handleInput = function(){
 
 }
 
-// Criando objeto Player()
-var player = new Player();
+// Criando objeto Player() e definindo a posição inicial do jogador
+var player = new Player(202,404);
 
 // Isto reconhece cliques em teclas e envia as chaves para seu
 // jogador. método handleInput(). Não é preciso mudar nada.
