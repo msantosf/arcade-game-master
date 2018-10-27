@@ -61,12 +61,38 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
 }
 
-Player.prototype.handleInput = function(){
-
+Player.prototype.handleInput = function(direcao){
+    let valor;
+    switch (direcao) {
+          case 'up':
+            console.log('Tecla pra cima');
+            if (this.y !== -15) {
+              this.y -= 80;
+            }
+            break;
+          case 'down':
+            console.log('Tecla pra baixo');
+            if ((this.y + 80) <= 385) {
+              this.y += 80;
+            }
+            break;
+          case 'left':
+            console.log('Tecla para esquerda');
+            if (this.x !== 0) {
+                this.x -= 101;
+            }
+            break;
+          case 'right':
+            console.log('Tecla para direita');
+            if (this.x !== 404) {
+                this.x += 101;
+            }
+            break;
+    }
 }
 
 // Criando objeto Player() e definindo a posição inicial do jogador
-var player = new Player(202,404);
+var player = new Player(202,385);
 
 // Isto reconhece cliques em teclas e envia as chaves para seu
 // jogador. método handleInput(). Não é preciso mudar nada.
