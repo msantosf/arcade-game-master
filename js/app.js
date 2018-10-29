@@ -123,14 +123,30 @@ Player.prototype.handleInput = function(direcao){
 
 Player.prototype.checkCollisions = function() {
     for (var i = 0; i < allEnemies.length; i++) {
+      //Se o Enemy estiver na mesma coordenada do player, jogador volta para posição inicial
       if((this.coordX === allEnemies[i].coordX) && (this.coordY === allEnemies[i].coordY)) {
           console.log('Colidiram!');
+          this.x = 202;
+          this.y = 385;
+          this.coordX = 2;
+          this.coordY = 5;
       }
     }
+    checkVitoria();
 }
 
 // Criando objeto Player() e definindo a posição inicial do jogador
 var player = new Player(202,385,2,5);
+
+function checkVitoria () {
+    var teste = setInterval(function () {
+      if (this.coordY === 0) {
+          alert('vencedor');
+        }
+    },0.5);
+
+    return teste;
+}
 
 // Isto reconhece cliques em teclas e envia as chaves para seu
 // jogador. método handleInput(). Não é preciso mudar nada.
