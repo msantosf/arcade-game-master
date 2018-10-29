@@ -1,10 +1,13 @@
 let allEnemies = [];
 // Inimigos que nosso jogador deve evitar
-var Enemy = function(x, y, velocidade) {
+var Enemy = function(x, y, coordX, coordY, velocidade) {
     //Definindo posição x do Enemy
     this.x = x;
     //Definindo posição y do Enemy
     this.y = y;
+
+    this.coordX = coordX;
+    this.coordY = coordY;
     //definindo velocidade
     this.velocidade = velocidade;
     //imagem do personagem
@@ -18,10 +21,26 @@ Enemy.prototype.update = function(dt) {
     //Novo x, será o próprio x + velocidade * delta
     this.x += this.velocidade * dt;
 
+    if (this.x >= 0 && this.x < 101) {
+        this.coordX = 0;
+    }
+    if (this.x >=101 && this.x < 202) {
+        this.coordX = 1;
+    }
+    if (this.x >= 202 && this.x < 303) {
+        this.coordX = 2;
+    }
+    if (this.x >= 303 && this.x < 404) {
+        this.coordX = 3;
+    }
+    if (this.x >= 404 && this.x < 505) {
+        this.coordX = 4;
+    }
     //Testando se inimigo chegou ao final do Canvas
     if(this.x > 505){
       //Se True, Enemy volta para posição inicial
-      this.x = 0;
+      this.x = -100;
+      this.coordX = null;
     }
 };
 
@@ -38,9 +57,9 @@ function randomVelocidade () {
 }
 
 //Criando array para armazenar os inimigos
-allEnemies.push(new Enemy(-100, 50.5, randomVelocidade()));
-allEnemies.push(new Enemy(-100, 140.5, randomVelocidade()));
-allEnemies.push(new Enemy(-100, 225.5, randomVelocidade()));
+allEnemies.push(new Enemy(-100, 50.5,0,1, randomVelocidade()));
+// allEnemies.push(new Enemy(-100, 140.5, randomVelocidade()));
+// allEnemies.push(new Enemy(-100, 225.5, randomVelocidade()));
 
 
 var Player = function (x,y, coordX, coordY) {
