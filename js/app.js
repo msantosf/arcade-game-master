@@ -34,8 +34,6 @@ Enemy.prototype.render = function() {
 function randomVelocidade () {
     let min = 100;
     let max = 600;
-    Math.ceil(min);
-    Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -44,12 +42,12 @@ allEnemies.push(new Enemy(-100, 50.5, randomVelocidade()));
 allEnemies.push(new Enemy(-100, 140.5, randomVelocidade()));
 allEnemies.push(new Enemy(-100, 225.5, randomVelocidade()));
 
-// Esta classe exige um método update(),
-// um render() e um handleInput().
 
-var Player = function (x,y) {
+var Player = function (x,y, coordX, coordY) {
     this.x = x;
     this.y = y;
+    this.coordX = coordX;
+    this.coordY = coordY;
     this.sprite = 'images/char-boy.png';
 }
 
@@ -57,6 +55,7 @@ Player.prototype.update = function(dt){
 
 }
 
+//Desenha player na tela
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
 }
@@ -64,35 +63,53 @@ Player.prototype.render = function(){
 Player.prototype.handleInput = function(direcao){
     let valor;
     switch (direcao) {
+          //caso tecla para cima
           case 'up':
             console.log('Tecla pra cima');
+            //Se posição y === -15, não decrementar
             if (this.y !== -15) {
               this.y -= 80;
+              this.coordY -=1;
             }
             break;
+          //caso tecla para baixo
           case 'down':
             console.log('Tecla pra baixo');
+            //Se posição y >= 385 não incrementar
             if ((this.y + 80) <= 385) {
               this.y += 80;
+              this.coordY +=1;
             }
             break;
+          //caso tecla para esquerda
           case 'left':
             console.log('Tecla para esquerda');
+            //Se posição x === 0 , não decrementar
             if (this.x !== 0) {
                 this.x -= 101;
+                this.coordX -=1;
             }
             break;
+          //caso tecla para direita
           case 'right':
             console.log('Tecla para direita');
+            //Se posição x === 404, não incrementar
             if (this.x !== 404) {
                 this.x += 101;
+                this.coordX +=1;
             }
             break;
     }
 }
 
+// Player.prototype.checkCollisions = function() {
+//     if(this.y === allEnemies[0].y) {
+//         console.log('conflito');
+//     }
+// }
+
 // Criando objeto Player() e definindo a posição inicial do jogador
-var player = new Player(202,385);
+var player = new Player(202,385,2,5);
 
 // Isto reconhece cliques em teclas e envia as chaves para seu
 // jogador. método handleInput(). Não é preciso mudar nada.
