@@ -58,8 +58,8 @@ function randomVelocidade () {
 
 //Criando array para armazenar os inimigos
 allEnemies.push(new Enemy(-100, 50.5,0,1, randomVelocidade()));
-// allEnemies.push(new Enemy(-100, 140.5, randomVelocidade()));
-// allEnemies.push(new Enemy(-100, 225.5, randomVelocidade()));
+allEnemies.push(new Enemy(-100, 140.5,0,2, randomVelocidade()));
+allEnemies.push(new Enemy(-100, 225.5,0,3, randomVelocidade()));
 
 
 var Player = function (x,y, coordX, coordY) {
@@ -71,7 +71,7 @@ var Player = function (x,y, coordX, coordY) {
 }
 
 Player.prototype.update = function(dt){
-
+    player.checkCollisions();
 }
 
 //Desenha player na tela
@@ -121,11 +121,13 @@ Player.prototype.handleInput = function(direcao){
     }
 }
 
-// Player.prototype.checkCollisions = function() {
-//     if(this.y === allEnemies[0].y) {
-//         console.log('conflito');
-//     }
-// }
+Player.prototype.checkCollisions = function() {
+    for (var i = 0; i < allEnemies.length; i++) {
+      if((this.coordX === allEnemies[i].coordX) && (this.coordY === allEnemies[i].coordY)) {
+          console.log('Colidiram!');
+      }
+    }
+}
 
 // Criando objeto Player() e definindo a posição inicial do jogador
 var player = new Player(202,385,2,5);
