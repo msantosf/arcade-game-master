@@ -68,6 +68,7 @@ var Player = function (x,y, coordX, coordY) {
     this.coordX = coordX;
     this.coordY = coordY;
     this.sprite = 'images/char-boy.png';
+    this.pontos = 5;
 }
 
 Player.prototype.update = function(dt){
@@ -131,6 +132,7 @@ Player.prototype.checkCollisions = function() {
           this.y = 385;
           this.coordX = 2;
           this.coordY = 5;
+          this.pontos --;
       }
     }
 }
@@ -147,14 +149,21 @@ var player = new Player(202,385,2,5);
 
 function vitoria() {
     const modal = document.getElementById('idModal');
-    const tituloModal = document.createElement('h1');
+    const mensagemModal = document.createElement('h1');
+    const paragrafo = document.createElement('p');
     const btnReiniciar = document.createElement('button');
-    btnReiniciar.innerHTML = '<span>Reiniciar jogo?</span>';
+    btnReiniciar.innerHTML = '<span>Jogar de novo?</span>';
     const conteudoModal = document.querySelector('.modalContent');
     var modalVitoria = setInterval(function () {
         modal.style.display = 'block';
-        tituloModal.textContent = 'Vencedor!!!';
-        conteudoModal.appendChild(tituloModal);
+
+        if ((player.pontos > 0) && (player.pontos <= 5)) {
+            mensagemModal.textContent = 'Vencedor!!!';
+            paragrafo.textContent = 'Você conseguiu atravessar com todos esses obstaculos!'
+            conteudoModal.appendChild(mensagemModal);
+            conteudoModal.appendChild(paragrafo);
+        }
+
         conteudoModal.appendChild(btnReiniciar);
     },250);
     btnReiniciar.onclick = function () {
