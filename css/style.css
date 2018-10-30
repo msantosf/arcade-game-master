@@ -1,3 +1,25 @@
 body {
     text-align: center;
+    background: url(../images/jardimBackGround.jpg);
+    background-size: cover;
+}
+
+/* CRIANDO ESTILO PARA MODAL  */
+.modal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+    background: #fefefe;
+    border-radius: 10px;
+    margin: 15px auto;
+    padding: 15%;
+    border: 1px solid #888;
+    width: 165px;
+    min-height: 170px;
+    text-align: center;
 }

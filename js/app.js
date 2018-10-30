@@ -72,6 +72,7 @@ var Player = function (x,y, coordX, coordY) {
 
 Player.prototype.update = function(dt){
     player.checkCollisions();
+    player.checkVitoria();
 }
 
 //Desenha player na tela
@@ -132,20 +133,34 @@ Player.prototype.checkCollisions = function() {
           this.coordY = 5;
       }
     }
-    checkVitoria();
+}
+
+Player.prototype.checkVitoria = function () {
+    if (this.coordY === 0) {
+      vitoria();
+      reset();
+    }
 }
 
 // Criando objeto Player() e definindo a posição inicial do jogador
 var player = new Player(202,385,2,5);
 
-function checkVitoria () {
-    var teste = setInterval(function () {
-      if (this.coordY === 0) {
-          alert('vencedor');
-        }
-    },0.5);
+function vitoria() {
+    const modal = document.getElementById('idModal');
+    const tituloModal = document.createElement('h1');
+    const conteudoModal = document.querySelector('.modalContent');
+    var modalVitoria = setInterval(function () {
+      modal.style.display = 'block';
+      tituloModal.textContent = 'Vencedor';
+      conteudoModal.appendChild(tituloModal);
+    },250);
+}
 
-    return teste;
+function reset() {
+    player.x = 202;
+    player.y = 385;
+    player.coordX = 2;
+    player.coordY = 5;
 }
 
 // Isto reconhece cliques em teclas e envia as chaves para seu
