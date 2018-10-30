@@ -148,12 +148,18 @@ var player = new Player(202,385,2,5);
 function vitoria() {
     const modal = document.getElementById('idModal');
     const tituloModal = document.createElement('h1');
+    const btnReiniciar = document.createElement('button');
+    btnReiniciar.innerHTML = '<span>Reiniciar jogo?</span>';
     const conteudoModal = document.querySelector('.modalContent');
     var modalVitoria = setInterval(function () {
-      modal.style.display = 'block';
-      tituloModal.textContent = 'Vencedor';
-      conteudoModal.appendChild(tituloModal);
+        modal.style.display = 'block';
+        tituloModal.textContent = 'Vencedor!!!';
+        conteudoModal.appendChild(tituloModal);
+        conteudoModal.appendChild(btnReiniciar);
     },250);
+    btnReiniciar.onclick = function () {
+        document.location.reload(true);
+    }
 }
 
 function reset() {
