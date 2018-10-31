@@ -1,26 +1,28 @@
 let allEnemies = [];
 // Inimigos que nosso jogador deve evitar
 var Enemy = function(x, y, coordX, coordY, velocidade) {
-    //Definindo posição x do Enemy
+    //Definindo posição x do Enemy no canvas
     this.x = x;
-    //Definindo posição y do Enemy
+    //Definindo posição y do Enemy no canvas
     this.y = y;
 
+    //coordenadas absolutas criadas para comparação
     this.coordX = coordX;
     this.coordY = coordY;
+
     //definindo velocidade
     this.velocidade = velocidade;
     //imagem do personagem
     this.sprite = 'images/enemy-bug.png';
 };
 
-// Atualize a posição do inimigo, método exigido pelo jogo
-// Parâmetro: dt, um delta de tempo entre ticks
+
 Enemy.prototype.update = function(dt) {
     //Criando nova posição para o enemy
     //Novo x, será o próprio x + velocidade * delta
     this.x += this.velocidade * dt;
 
+    //Atribuindo a coordenada absolutas coordX com base na posição x do mesmo no canvas
     if (this.x >= 0 && this.x < 101) {
         this.coordX = 0;
     }
@@ -61,16 +63,22 @@ allEnemies.push(new Enemy(-100, 50.5,0,1, randomVelocidade()));
 allEnemies.push(new Enemy(-100, 140.5,0,2, randomVelocidade()));
 allEnemies.push(new Enemy(-100, 225.5,0,3, randomVelocidade()));
 
-
+//criando Objeto Player
 var Player = function (x,y, coordX, coordY) {
+    //x e y do player no canvas
     this.x = x;
     this.y = y;
+
+    //coordenadas absolutas do player para comparação com coordenadas do Enemy
     this.coordX = coordX;
     this.coordY = coordY;
+    // Atribuindo imagem ao player
     this.sprite = 'images/char-boy.png';
+    //criando uma variável 'pontos' para mudar a mensagem após vitória no jogo
     this.pontos = 5;
 }
 
+//Update chama checkCollisions e checkVitoria
 Player.prototype.update = function(dt){
     player.checkCollisions();
     player.checkVitoria();
@@ -81,6 +89,7 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
 }
 
+//Definindo função que movimenta o player e ainda faz as altrações na coordX,coordY, x e y
 Player.prototype.handleInput = function(direcao){
     let valor;
     switch (direcao) {
@@ -123,20 +132,21 @@ Player.prototype.handleInput = function(direcao){
     }
 }
 
+//Função criada para checar se player foi encostado pelo Enemy
 Player.prototype.checkCollisions = function() {
     for (var i = 0; i < allEnemies.length; i++) {
       //Se o Enemy estiver na mesma coordenada do player, jogador volta para posição inicial
       if((this.coordX === allEnemies[i].coordX) && (this.coordY === allEnemies[i].coordY)) {
           console.log('Colidiram!');
-          this.x = 202;
-          this.y = 385;
-          this.coordX = 2;
-          this.coordY = 5;
+          //chama função reset que coloca o player na posição inicial do jogo
+          reset();
+          //decrementa a pontos
           this.pontos --;
       }
     }
 }
 
+//Função que chama funções vitoria e reset
 Player.prototype.checkVitoria = function () {
     if (this.coordY === 0) {
       vitoria();
@@ -147,6 +157,7 @@ Player.prototype.checkVitoria = function () {
 // Criando objeto Player() e definindo a posição inicial do jogador
 var player = new Player(202,385,2,5);
 
+//Função que cria modal de acordo com os pontos do player
 function vitoria() {
     const modal = document.getElementById('idModal');
     const mensagemModal = document.createElement('h1');
@@ -157,13 +168,27 @@ function vitoria() {
     var modalVitoria = setInterval(function () {
         modal.style.display = 'block';
 
-        if ((player.pontos > 0) && (player.pontos <= 5)) {
-            mensagemModal.textContent = 'Vencedor!!!';
-            paragrafo.textContent = 'Você conseguiu atravessar com todos esses obstaculos!'
+        //De acordo com o valor final da variável o texto dos modais são alterados
+        if (player.pontos === 5) {
+            mensagemModal.textContent = 'Excelente';
+            paragrafo.textContent = 'Você conseguiu atravessar com todos esses obstaculos sem que nenhuma barata te pegasse!'
             conteudoModal.appendChild(mensagemModal);
             conteudoModal.appendChild(paragrafo);
         }
 
+        if (player.pontos === 4) {
+            mensagemModal.textContent = 'Muito Bom';
+            paragrafo.textContent = 'As baratas te pegaram apenas 01 vez!';
+            conteudoModal.appendChild(mensagemModal);
+            conteudoModal.appendChild(paragrafo);
+        }
+
+        if (player.pontos <= 3) {
+            mensagemModal.textContent = 'Você conseguiu ...';
+            paragrafo.textContent = '... mas pode melhorar! As baratas te pegaram mais de 01 vez, mostre pra elas quem é que manda! Jogue novamente!';
+            conteudoModal.appendChild(mensagemModal);
+            conteudoModal.appendChild(paragrafo);
+        }
         conteudoModal.appendChild(btnReiniciar);
     },250);
     btnReiniciar.onclick = function () {
@@ -171,6 +196,7 @@ function vitoria() {
     }
 }
 
+//função que reseta a posição do player
 function reset() {
     player.x = 202;
     player.y = 385;
