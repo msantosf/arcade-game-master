@@ -1,5 +1,4 @@
 # Projeto 01: "frontend-nanodegree-arcade-game"
-================================================
 
 ## Sobre o jogo
 
@@ -13,17 +12,19 @@
 
 ### Alterações feitas em ```app.js```
 
-  Com grande parte do classe ```Enemy``` criado foi necessário apenas implementar mais algumas funcionalidades e incrementar algumas subclasses.
+  Com grande parte da classe ```Enemy``` criada foi necessário apenas implementar mais algumas funcionalidades e incrementar algumas subclasses.
 
-  Vale ressaltar que entendendo o funcionamento dessa classe, pode-se usar os conceitos atribuídos à ele para a criação do objeto que representará o jogador, no caso o classe ```Player```.
+  Vale ressaltar que entendendo o funcionamento dessa classe, pode-se usar os conceitos atribuídos à ela para a criação do objeto que representará o jogador, no caso a classe ```Player```.
 
   Ainda no metódo construtor do ```Enemy``` vale ressaltar a criação de duas variáveis:
 
   ```coordX``` e ````coordY````
 
-  Essas duas variáveis foram criadas para efetuar os testes necessários de colisão entre inimigo e jogador já que as coordenadas do canvas seriam menos precisas para o mesmo. Variáveis encontradas também em ```Player```.
+  Essas duas variáveis foram criadas para efetuar os testes necessários de colisão entre inimigo e jogador, já que as coordenadas do canvas seriam menos precisas para este fim. Tais variáveis são encontradas também em ```Player```.
 
-  Como no jogo devem existir mais de um inimigo, criamos vários a partir de um array chamado ```allEnemies```. Para criar mais de um inimigo é feito:
+  Como no jogo devem existir mais de um inimigo, criamos vários a partir de um array chamado ```allEnemies```.
+
+  Para criar mais de um inimigo é feito:
 
   ```
   allEnemies.push(new Enemy(x, y,coordX,coordY, randomVelocidade()));
@@ -33,21 +34,40 @@
 
 #### ```Enemy.prototype.update```
 
-  Nessa subclasse a posição do inimigo é atualizada, juntamento com a velocidade que é definida pela função ```randomVelocidade()``` .
+  Nessa subclasse a posição do inimigo é atualizada, juntamente com a velocidade que é definida pela função ```randomVelocidade()``` .
 
   Também é aqui que é garantido que o inimigo saia pela direita e reapareça na esquerda, atualizando tanto as coordenadas do canvas quanto a ```coordX```.
 
-#### Criação do classe Player e subclasses
+#### Criação da classe Player e subclasses
 
-  Utilizando
+  Utilizando a classe e subclasses de```Enemy``` , foi criada a partir de então a classe ```Player```.
 
+  A única variável não existente em ```Enemy``` que foi criada dentro do construtor foi a ```pontos```. O intuito dessa variável é ter uma pontuação que definirá qual será o modal que irá aparecer ao final do jogo.
 
+  #### Subclasse ```handleInput```
 
+  Esta classe é chamada dentro do evento ```document.addEventListerner('keyup', function (e))``` . Esse evento chama a classe, passando pra ela um objeto com os valores de evento das teclas de direção do teclado.
 
+  Voltando a subclasse, o valor recebido como parâmetro é usado dentro de um ```switch``` onde são testados cada posição. Ao testar, é feita a atualiação dos valores ```x,y, coordX e coordY``` .
 
+#### Subclasse ```update```
 
+  Esta subclasse tem como responsabilidade chamar outras duas subclasses que seriam: ```checkCollisions()``` e ```checkVitoria()``` .
 
+#### ```checkCollisions```
 
-Os alunos devem usar esta [rubrica](https://review.udacity.com/#!/rubrics/436/view) para fazer uma autoavaliação de seu projeto. Certifique-se de que as funções que escreveu sejam **orientadas a objetos** - tanto funções de classe (como Player e Enemy) como funções de protótipo de classe, como Enemy.prototype.checkCollisions, e que a palavra-chave 'this' seja usada de maneira correta em suas funções de classe e de protótipo de classe para se referir ao objeto que faz a chamada da função. Certifique-se, também, de que o arquivo **readme.md** esteja atualizado com suas instruções, tanto sobre rodar quanto sobre como jogar o fliperama clássico.
+  Como implicito no nome da classe, tem como intuito verificar se o jogador esta na mesma posição que o inimigo. Caso esteja, o jogador volta a para a posição iniciar do jogo.
 
-Para ver instruções detalhadas sobre como começar, confira este [guia](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+  Caso isso aconteça a variável ```pontos``` é decrementada.
+
+  #### ```checkVitoria```
+
+  Essa subclasse testa se a ```coordY``` do player é igual a 0, indicando assim que chegou ao objetivo do jogo.
+
+  Caso verdade, chama duas funções: ```vitoria()``` e ```reset()```.
+
+  A função ```vitoria()``` criará o modal que indicará ao usuário que ele ganhou o jogo.
+
+  No entanto dentro da mesma é efetuado o teste de valor da variável ```pontos``` da classe ```PLayer```. De acordo com esse valor é demonstrado uma mensagem diferente dentro do modal.
+
+  Por fim a classe ```reset()``` faz com que o jogador volte a posição inicial do jogo.

@@ -91,11 +91,9 @@ Player.prototype.render = function(){
 
 //Definindo função que movimenta o player e ainda faz as altrações na coordX,coordY, x e y
 Player.prototype.handleInput = function(direcao){
-    let valor;
     switch (direcao) {
           //caso tecla para cima
           case 'up':
-            console.log('Tecla pra cima');
             //Se posição y === -15, não decrementar
             if (this.y !== -15) {
               this.y -= 80;
@@ -104,7 +102,6 @@ Player.prototype.handleInput = function(direcao){
             break;
           //caso tecla para baixo
           case 'down':
-            console.log('Tecla pra baixo');
             //Se posição y >= 385 não incrementar
             if ((this.y + 80) <= 385) {
               this.y += 80;
@@ -113,7 +110,6 @@ Player.prototype.handleInput = function(direcao){
             break;
           //caso tecla para esquerda
           case 'left':
-            console.log('Tecla para esquerda');
             //Se posição x === 0 , não decrementar
             if (this.x !== 0) {
                 this.x -= 101;
@@ -122,7 +118,6 @@ Player.prototype.handleInput = function(direcao){
             break;
           //caso tecla para direita
           case 'right':
-            console.log('Tecla para direita');
             //Se posição x === 404, não incrementar
             if (this.x !== 404) {
                 this.x += 101;
@@ -137,7 +132,6 @@ Player.prototype.checkCollisions = function() {
     for (var i = 0; i < allEnemies.length; i++) {
       //Se o Enemy estiver na mesma coordenada do player, jogador volta para posição inicial
       if((this.coordX === allEnemies[i].coordX) && (this.coordY === allEnemies[i].coordY)) {
-          console.log('Colidiram!');
           //chama função reset que coloca o player na posição inicial do jogo
           reset();
           //decrementa a pontos
