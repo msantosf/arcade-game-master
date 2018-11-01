@@ -1,5 +1,11 @@
 # Projeto 01: "frontend-nanodegree-arcade-game"
 
+## Acesso o jogo 
+
+  Para acessar o jogo, clone o repositório e depois abra o arquivo ```index.html``` existente dentro do diretório **arcade-game-master**:
+
+      $ git clone https://github.com/msantosf/arcade-game-master.git
+
 ## Sobre o jogo
 
   O jogo consite no ideal do clássico de fliperama e atari: frogger. Nesse caso você controla um garoto que deve passar por baratas em movimento até a chegada na água.

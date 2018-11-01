@@ -80,7 +80,7 @@ var Player = function (x,y, coordX, coordY) {
 
 //Update chama checkCollisions e checkVitoria
 Player.prototype.update = function(dt){
-    player.checkCollisions();
+    // player.checkCollisions();
     player.checkVitoria();
 }
 
@@ -128,10 +128,10 @@ Player.prototype.handleInput = function(direcao){
 }
 
 //Função criada para checar se player foi encostado pelo Enemy
-Player.prototype.checkCollisions = function() {
-    for (var i = 0; i < allEnemies.length; i++) {
+Player.prototype.checkCollisions = function(arrEnemy) {
+    for (var i = 0; i < arrEnemy.length; i++) {
       //Se o Enemy estiver na mesma coordenada do player, jogador volta para posição inicial
-      if((this.coordX === allEnemies[i].coordX) && (this.coordY === allEnemies[i].coordY)) {
+      if((this.coordX === arrEnemy[i].coordX) && (this.coordY === arrEnemy[i].coordY)) {
           //chama função reset que coloca o player na posição inicial do jogo
           reset();
           //decrementa a pontos
